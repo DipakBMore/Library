@@ -20,8 +20,10 @@
 #     def __init__(self, name):
 #         self.name = name
 #         self.books =[]
+import csv
+import os
 
-CSV_Folder_Path = "D:\\DIPAK_AI_TRAINING\\GIFTABLED_AI_LEARN\\Programs"
+CSV_Folder_Path = os.path.dirname(os.path.abspath(__file__)) #"D:\\DIPAK_AI_TRAINING\\GIFTABLED_AI_LEARN\\Programs"
 
 #create class for Book
 class Book:
@@ -67,7 +69,7 @@ class Library:
         print(f"{book_title} not found in {self.name}.")
 
     def save_to_csv(self):
-        filename = os.path.join(CSV_Folder_Path, f"{self.name}.csv")
+        filename = os.path.join( CSV_Folder_Path, f"{self.name}.csv")
         with open(filename, mode="w", newline="") as file:
             writer = csv.writer(file)
             writer.writerow(["Title", "Author", "Copies"])
@@ -76,8 +78,7 @@ class Library:
 
 
 
-import csv
-import os
+
 # Main program
 if __name__ == "__main__":
     libraries = {}
