@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 250px;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .library-list {
+            margin-top: 20px;
+        }
+
+        .library-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .library-name {
+            width: 250px;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+
+    <h2>Library Management</h2>
+
+    <div class="input-section">
+        <input type="text" id="libraryInput" placeholder="Enter library name">
+        <button onclick="addLibrary()">Add Library</button>
+    </div>
+
+    <div class="library-list" id="libraryList">
+        <!-- Library items will be added here -->
+         <div class="library-item">
+            <span>Central</span>
+            <button class="view-btn" onclick="viewLibrary('Central')">
+                View
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function addLibrary() {
+            const input = document.getElementById("libraryInput");
+            const libraryName = input.value.trim();
+
+            if (libraryName === "") {
+                alert("Please enter a library name.");
+                return;
+            }
+
+            const listContainer = document.getElementById("libraryList");
+
+            const libraryItem = document.createElement("div");
+            libraryItem.className = "library-item";
+
+            const nameSpan = document.createElement("span");
+            nameSpan.className = "library-name";
+            nameSpan.textContent = libraryName;
+
+            const viewButton = document.createElement("button");
+            viewButton.textContent = "View";
+            viewButton.onclick = function () {
+                alert("Viewing library: " + libraryName);
+            };
+
+            libraryItem.appendChild(nameSpan);
+            libraryItem.appendChild(viewButton);
+
+            listContainer.appendChild(libraryItem);
+
+            input.value = "";
+        }
+    </script>
+
+</body>
+</html>

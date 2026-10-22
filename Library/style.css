@@ -1,0 +1,99 @@
+/* Page Background */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    margin: 0;
+    padding: 30px;
+}
+
+/* Main Container */
+.container {
+    width: 550px;
+    margin: auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+/* Header */
+h2 {
+    margin: 0;
+    padding: 15px;
+    text-align: center;
+    background-color: #1976d2;
+    color: white;
+}
+
+/* Input Section */
+.form-section {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+}
+
+#libraryInput {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #90caf9;
+    border-radius: 6px;
+}
+
+#libraryInput:focus {
+    outline: none;
+    border-color: #1976d2;
+}
+
+/* Add Button */
+#addBtn {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#addBtn:hover {
+    background-color: #0d47a1;
+}
+
+/* Library List */
+.library-list {
+    padding: 0 20px 20px;
+}
+
+/* Each Library Row */
+.library-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e8f4fd;
+    border-left: 5px solid #1976d2;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+/* Library Name */
+.library-item span {
+    color: #0d47a1;
+    font-weight: bold;
+}
+
+/* View Button */
+.view-btn {
+    background-color: #43a047;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.view-btn:hover {
+    background-color: #2e7d32;
+}
