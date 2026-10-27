@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background: #f5f5f5;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 6px 12px;
+            margin: 3px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .add-btn {
+            background: green;
+            color: white;
+        }
+
+        .edit-btn {
+            background: orange;
+            color: white;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+        }
+
+        .book-btn {
+            background: blue;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        th {
+            background: #828a82;
+            color: white;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .book-section {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Library Management</h2>
+
+        <input type="text" id="libraryInput" placeholder="Create New Library">
+        <button class="add-btn" onclick="addLibrary()">Add Library</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Library</th>
+                    <th>Books</th>
+                    <th>Library Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="libraryTableBody">
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <script>
+
+        let libraries = [];
+
+        function addLibrary() {
+
+            let libraryName =
+                document.getElementById("libraryInput").value.trim();
+
+            if (libraryName === "") {
+                alert("Enter library name");
+                return;
+            }
+
+            libraries.push({
+                name: libraryName,
+                books: []
+            });
+
+            document.getElementById("libraryInput").value = "";
+
+            displayLibraries();
+        }
+
+        function displayLibraries() {
+
+            let body =
+                document.getElementById("libraryTableBody");
+
+            body.innerHTML = "";
+
+            libraries.forEach((library, libraryIndex) => {
+
+                let booksHtml = "";
+
+                if (library.books.length === 0) {
+
+                    booksHtml = "<i>No Books Available</i>";
+
+                } else {
+
+                    booksHtml = "<ul>";
+
+                    library.books.forEach((book, bookIndex) => {
+
+                        booksHtml += `
+                        <li>
+                            ${book}
+
+                            <button class="edit-btn"
+                            onclick="updateBook(${libraryIndex},${bookIndex})">
+                            Edit
+                            </button>
+
+                            <button class="delete-btn"
+                            onclick="deleteBook(${libraryIndex},${bookIndex})">
+                            Delete
+                            </button>
+                        </li>
+                    `;
+                    });
+
+                    booksHtml += "</ul>";
+                }
+
+                let row = `
+                <tr>
+
+                    <td>
+                        <b>${library.name}</b>
+
+                        <div class="book-section">
+                            <button class="book-btn"
+                            onclick="addBook(${libraryIndex})">
+                            Add Book
+                            </button>
+                        </div>
+                    </td>
+
+                    <td>
+                        ${booksHtml}
+                    </td>
+
+                    <td>
+
+                        <button class="edit-btn"
+                        onclick="updateLibrary(${libraryIndex})">
+                        Update
+                        </button>
+
+                        <button class="delete-btn"
+                        onclick="deleteLibrary(${libraryIndex})">
+                        Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+            `;
+
+                body.innerHTML += row;
+
+            });
+
+        }
+
+        function updateLibrary(index) {
+
+            let newName = prompt(
+                "Enter new library name",
+                libraries[index].name
+            );
+
+            if (newName && newName.trim() !== "") {
+
+                libraries[index].name = newName.trim();
+
+                displayLibraries();
+            }
+        }
+
+        function deleteLibrary(index) {
+
+            if (confirm("Delete this library?")) {
+
+                libraries.splice(index, 1);
+
+                displayLibraries();
+            }
+        }
+
+        function addBook(libraryIndex) {
+
+            let bookName = prompt("Enter book name");
+
+            if (bookName && bookName.trim() !== "") {
+
+                libraries[libraryIndex].books.push(
+                    bookName.trim()
+                );
+
+                displayLibraries();
+            }
+        }
+
+        function updateBook(libraryIndex, bookIndex) {
+
+            let newBook = prompt(
+                "Update Book Name",
+                libraries[libraryIndex].books[bookIndex]
+            );
+
+            if (newBook && newBook.trim() !== "") {
+
+                libraries[libraryIndex].books[bookIndex] =
+                    newBook.trim();
+
+                displayLibraries();
+            }
+        }
+
+        function deleteBook(libraryIndex, bookIndex) {
+
+            if (confirm("Delete this book?")) {
+
+                libraries[libraryIndex].books.splice(
+                    bookIndex,
+                    1
+                );
+
+                displayLibraries();
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
