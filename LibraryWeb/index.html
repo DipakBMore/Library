@@ -98,6 +98,8 @@
 
         <input type="text" id="libraryInput" placeholder="Create New Library">
         <button class="add-btn" onclick="addLibrary()">Add Library</button>
+        <button class="view-btn" onclick="readLibraries()">View Library</button><br>
+        <ul id = "libraryList"></ul>
 
         <table>
             <thead>
@@ -119,7 +121,7 @@
 
         let libraries = [];
 
-        function addLibrary() {
+        async function addLibrary() {
 
             let libraryName =
                 document.getElementById("libraryInput").value.trim();
@@ -137,6 +139,14 @@
             document.getElementById("libraryInput").value = "";
 
             displayLibraries();
+                var response = await fetch("http://127.0.0.1:8000/libraries", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: 22,LibraryName: libraryName, Place:"Bengaluru" })
+            });
+
+            const data = await response.json();
+            alert(data.message);
         }
 
         function displayLibraries() {
@@ -289,6 +299,23 @@
             }
         }
 
+        async function readLibraries() {
+            const response = await fetch("http://127.0.0.1:8000/libraries");
+
+            const data = await response.json();
+
+            const list = document.getElementById("libraryList");
+            list.textContent = "";
+
+            for (const library of Object.values(data)) {
+                const item = document.createElement("li");
+
+                item.textContent =
+                    library.LibraryName + " - " + library.Place;
+
+                list.appendChild(item);
+            }
+        }
     </script>
 
 </body>
